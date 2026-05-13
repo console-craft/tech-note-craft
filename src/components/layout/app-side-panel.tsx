@@ -1,10 +1,9 @@
 import type { ReactElement, ReactNode } from "react"
-import { useEffect, useRef, useState } from "react"
+import { lazy, Suspense, useEffect, useRef, useState } from "react"
 import { IconX } from "@tabler/icons-react"
-import { AIChat } from "@/components/ai-chat"
-import { AIChatHistory } from "@/components/ai-chat/history"
 import { Button } from "@/components/ui/button"
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable"
+import { Spinner } from "@/components/ui/spinner"
 import { useIsMobile } from "@/hooks/use-mobile"
 import { usePageScrollbarVisibility } from "@/hooks/use-page-scrollbar-visibility"
 import { useScrollAIChatCardIntoView } from "@/hooks/use-scroll-ai-chat-card-into-view"
@@ -12,6 +11,18 @@ import { cn } from "@/lib/utils"
 import type { ActiveAIChat } from "@/components/ai-chat"
 
 const sidePanelAnimationDuration = 200
+
+const LazyAIChat = lazy(async () => {
+  const module = await import("@/components/ai-chat")
+
+  return { default: module.AIChat }
+})
+
+const LazyAIChatHistory = lazy(async () => {
+  const module = await import("@/components/ai-chat/history")
+
+  return { default: module.AIChatHistory }
+})
 
 export type AppSidePanelView = { mode: "ai-chat"; chat: ActiveAIChat } | { mode: "ai-chat-history" }
 
@@ -51,20 +62,36 @@ function AppSidePanelContent({ onClose, onOpenChat, view }: AppSidePanelContentP
           <IconX />
         </Button>
       </div>
-      {view.mode === "ai-chat" ? (
-        <AIChat
-          key={view.chat.cardId}
-          cardId={view.chat.cardId}
-          group={view.chat.group}
-          category={view.chat.category}
-          title={view.chat.title}
-          content={view.chat.content}
-          isReadOnly={view.chat.isReadOnly}
-        />
-      ) : (
-        <AIChatHistory onOpenChat={onOpenChat} />
-      )}
+      <Suspense fallback={<AppSidePanelLoading />}>
+        {view.mode === "ai-chat" ? (
+          <LazyAIChat
+            key={view.chat.cardId}
+            cardId={view.chat.cardId}
+            group={view.chat.group}
+            category={view.chat.category}
+            title={view.chat.title}
+            content={view.chat.content}
+            isReadOnly={view.chat.isReadOnly}
+          />
+        ) : (
+          <LazyAIChatHistory onOpenChat={onOpenChat} />
+        )}
+      </Suspense>
     </aside>
+  )
+}
+
+/**
+ * Renders the side panel loading state while lazy views download.
+ *
+ * @returns A compact loading indicator.
+ */
+function AppSidePanelLoading(): ReactElement {
+  return (
+    <div className="flex min-h-0 flex-1 items-center justify-center gap-2 p-4 text-sm text-muted-foreground">
+      <Spinner />
+      Loading panel...
+    </div>
   )
 }
 

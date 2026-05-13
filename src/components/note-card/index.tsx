@@ -1,5 +1,5 @@
 import type { MouseEvent, ReactElement } from "react"
-import { MarkdownContent } from "@/components/core/markdown-content"
+import { DeferredMarkdownContent } from "@/components/core/markdown-content"
 import { NoteCardActions } from "@/components/note-card/actions"
 import { QuizCarousel } from "@/components/note-card/quiz-carousel"
 import { Badge } from "@/components/ui/badge"
@@ -105,9 +105,9 @@ export function NoteCard({
       </CardHeader>
       {isExpanded ? (
         <CardContent>
-          <MarkdownContent allowHtml content={body}>
+          <DeferredMarkdownContent allowHtml content={body}>
             {quiz.length > 0 ? <QuizCarousel quiz={quiz} /> : null}
-          </MarkdownContent>
+          </DeferredMarkdownContent>
         </CardContent>
       ) : null}
       {isExpanded ? (

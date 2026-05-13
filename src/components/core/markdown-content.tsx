@@ -1,7 +1,6 @@
 import type { CSSProperties, ReactElement, ReactNode } from "react"
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { copyTextToClipboard } from "@/lib/browser/clipboard"
-import { renderMarkdown } from "@/lib/markdown/renderer"
 import { cn } from "@/lib/utils"
 
 const markdownContentClassName = cn(
@@ -207,6 +206,7 @@ export function MarkdownContent({
 
     void (async () => {
       try {
+        const { renderMarkdown } = await import("@/lib/markdown/renderer")
         const rendered = await renderMarkdown(content, { allowHtml })
 
         if (!ignore) {
@@ -248,6 +248,65 @@ export function MarkdownContent({
     <div className={cn(markdownContentClassName, className)} style={markdownContentStyle}>
       <div ref={renderedContentRef} dangerouslySetInnerHTML={{ __html: html }} />
       {children ? <div>{children}</div> : null}
+    </div>
+  )
+}
+
+interface DeferredMarkdownContentProps extends MarkdownContentProps {
+  rootMargin?: string
+}
+
+/**
+ * Defers markdown rendering until the content is near the viewport.
+ *
+ * @param props - Markdown content props plus an optional observer margin.
+ * @returns Deferred markdown content or a lightweight placeholder.
+ */
+export function DeferredMarkdownContent({
+  emptyMessage = "Loading content...",
+  rootMargin = "600px 0px",
+  ...props
+}: DeferredMarkdownContentProps): ReactElement {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [shouldRender, setShouldRender] = useState(false)
+
+  useEffect(() => {
+    const container = containerRef.current
+
+    if (!container || shouldRender) {
+      return
+    }
+
+    if (!("IntersectionObserver" in window)) {
+      setShouldRender(true)
+
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldRender(true)
+          observer.disconnect()
+        }
+      },
+      { rootMargin },
+    )
+
+    observer.observe(container)
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [rootMargin, shouldRender])
+
+  return (
+    <div ref={containerRef}>
+      {shouldRender ? (
+        <MarkdownContent emptyMessage={emptyMessage} {...props} />
+      ) : (
+        <p className="text-sm text-muted-foreground">{emptyMessage}</p>
+      )}
     </div>
   )
 }
