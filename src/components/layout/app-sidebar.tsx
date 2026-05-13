@@ -19,6 +19,7 @@ import {
   SidebarSeparator,
   useSidebar,
 } from "@/components/ui/sidebar"
+import { createBrowserHref } from "@/lib/browser/routing"
 import { contentGroups, type ContentGroup } from "@/lib/content"
 import { getGroupIcon } from "@/lib/content/group-icons"
 import { cn } from "@/lib/utils"
@@ -68,7 +69,7 @@ function SidebarNavGroup({ currentHref, group, onNavigate }: SidebarNavGroupProp
                 tooltip={`${group.title}: ${category.title}`}
               >
                 <a
-                  href={category.href}
+                  href={createBrowserHref(category.href)}
                   onClick={(event) => onNavigate(event, category.href)}
                   className="h-[1.8em] text-[0.8em]"
                 >
@@ -185,7 +186,7 @@ export function AppSidebar({ currentHref, onNavigate }: AppSidebarProps): ReactE
               className="mt-1"
             >
               <a
-                href="/"
+                href={createBrowserHref("/")}
                 onClick={(event) => navigateAndCloseMobile(event, "/")}
                 className="flex items-center justify-center"
               >

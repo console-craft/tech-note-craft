@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button"
 import { SidebarTrigger, useSidebar } from "@/components/ui/sidebar"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { useIsMobile } from "@/hooks/use-mobile"
+import { createBrowserHref } from "@/lib/browser/routing"
 import { cn } from "@/lib/utils"
 
 interface TopNavbarProps {
@@ -59,7 +60,7 @@ export function TopNavbar({
       <div className="flex items-center gap-2">
         <SidebarTrigger className="md:hidden" />
         <a
-          href="/"
+          href={createBrowserHref("/")}
           className="flex items-center gap-2 font-heading text-sm font-semibold tracking-tight"
           onClick={(event) => onNavigate(event, "/")}
         >

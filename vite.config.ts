@@ -27,6 +27,7 @@ function markdownFrontmatterPlugin(): Plugin {
 }
 
 export default defineConfig({
+  base: process.env.BASE_PATH ?? "/",
   fmt: { ignorePatterns: [".opencode/**"], printWidth: 120, semi: false },
   lint: {
     ignorePatterns: [".opencode/**"],

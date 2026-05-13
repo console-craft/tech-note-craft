@@ -4,6 +4,7 @@ import { NoteCardActions } from "@/components/note-card/actions"
 import { QuizCarousel } from "@/components/note-card/quiz-carousel"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { createBrowserHref } from "@/lib/browser/routing"
 import type { QuizType } from "@/lib/content"
 import { getGroupIcon } from "@/lib/content/group-icons"
 import { cn } from "@/lib/utils"
@@ -95,7 +96,7 @@ export function NoteCard({
           </button>
           <div className="mt-2 flex">
             <Badge asChild variant="secondary" className="text-primary">
-              <a href={categoryHref} onClick={navigateToCategory}>
+              <a href={createBrowserHref(categoryHref)} onClick={navigateToCategory}>
                 {category}
               </a>
             </Badge>
