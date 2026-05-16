@@ -1,6 +1,6 @@
 # tech-note-craft
 
-Markdown based technical notes renderer and explorer.
+Markdown based technical notes renderer and explorer + AI chat.
 
 [https://console-craft.com/tech-note-craft](https://console-craft.com/tech-note-craft)
 
