@@ -22,6 +22,7 @@ const markdownContentClassName = cn(
   "[&_td]:border [&_td]:px-1.5 [&_td]:py-1.5 [&_td]:text-left [&_td]:[&[align=center]]:text-center [&_td]:[&[align=right]]:text-right [&_td_code]:bg-secondary!",
   "[&_ul]:my-3 [&_ul]:ml-4 [&_ul]:list-disc [&_ul]:[&>li]:mt-0.5",
   "[&_ol]:my-3 [&_ol]:ml-6 [&_ol]:list-decimal [&_ol]:[&>li]:mt-0.5",
+  "[&_li>ul]:ml-4 [&_li>ol]:ml-6 [&_li>ul]:my-1 [&_li>ol]:my-1",
   "[&_large]:text-[1.15em] [&_large]:font-semibold",
   "[&_small]:text-[0.8em] [&_small]:leading-none [&_small]:font-medium",
   "[&_hr]:my-4",

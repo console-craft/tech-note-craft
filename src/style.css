@@ -308,6 +308,43 @@
     background: color-mix(in oklch, var(--muted-foreground) 70%, transparent);
   }
 
+  .markdown-callout.markdown-callout {
+    background: color-mix(in oklch, var(--markdown-callout-color, var(--primary)) 5%, transparent);
+    border-color: var(--markdown-callout-color, var(--primary));
+    border-radius: var(--radius-md);
+    border-left-width: 3px;
+    font-style: normal !important;
+    padding: 0.5rem !important;
+  }
+
+  .markdown-callout::before {
+    color: var(--markdown-callout-color, var(--primary));
+    content: attr(data-callout-title);
+    display: block;
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+    text-transform: uppercase;
+  }
+
+  .markdown-callout > :first-child {
+    margin-top: 0;
+  }
+
+  .markdown-callout > :last-child {
+    margin-bottom: 0;
+  }
+
+  .markdown-callout-note,
+  .markdown-callout-tip {
+    --markdown-callout-color: var(--primary);
+  }
+
+  .markdown-callout-important,
+  .markdown-callout-warning,
+  .markdown-callout-caution {
+    --markdown-callout-color: var(--destructive);
+  }
+
   .dark .shiki {
     background-color: var(--shiki-dark-bg) !important;
   }

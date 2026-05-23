@@ -1,5 +1,5 @@
 import { fromHighlighter } from "@shikijs/markdown-exit/core"
-import { createMarkdownExit, type MarkdownExit } from "markdown-exit"
+import { createMarkdownExit, type MarkdownExit, type StateCore, type Token } from "markdown-exit"
 import { createHighlighterCore } from "shiki/core"
 import { createJavaScriptRegexEngine } from "shiki/engine/javascript"
 import angularHtml from "shiki/langs/angular-html.mjs"
@@ -33,6 +33,16 @@ import typescript from "shiki/langs/typescript.mjs"
 import vue from "shiki/langs/vue.mjs"
 import yaml from "shiki/langs/yaml.mjs"
 import { gruvcraftDark, gruvcraftLight } from "@/lib/markdown/themes"
+
+const calloutMarkerPattern = /^\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\][ \t]*/i
+
+const calloutTitles = {
+  caution: "Caution",
+  important: "Important",
+  note: "Note",
+  tip: "Tip",
+  warning: "Warning",
+} as const
 
 const highlighter = createHighlighterCore({
   engine: createJavaScriptRegexEngine(),
@@ -72,6 +82,88 @@ const highlighter = createHighlighterCore({
 })
 
 /**
+ * Gets the normalized GitHub-style callout type from an inline token.
+ *
+ * @param token - The inline token at the start of a blockquote paragraph.
+ * @returns A supported callout type, or null when the token is not a callout marker.
+ */
+function getCalloutType(token: Token | undefined): keyof typeof calloutTitles | null {
+  const firstChild = token?.children?.[0]
+
+  if (firstChild?.type !== "text") {
+    return null
+  }
+
+  const match = calloutMarkerPattern.exec(firstChild.content)
+
+  if (!match?.[1]) {
+    return null
+  }
+
+  return match[1].toLowerCase() as keyof typeof calloutTitles
+}
+
+/**
+ * Removes the leading callout marker from an inline token after blockquote classification.
+ *
+ * @param token - The inline token that starts with a GitHub-style callout marker.
+ * @returns Nothing.
+ */
+function removeCalloutMarker(token: Token): void {
+  const firstChild = token.children?.[0]
+
+  if (firstChild?.type !== "text" || !token.children) {
+    return
+  }
+
+  firstChild.content = firstChild.content.replace(calloutMarkerPattern, "")
+  token.content = token.content.replace(calloutMarkerPattern, "")
+
+  if (firstChild.content.length > 0) {
+    return
+  }
+
+  token.children.shift()
+
+  if (token.children[0]?.type === "softbreak") {
+    token.children.shift()
+    token.content = token.content.replace(/^\n/, "")
+  }
+}
+
+/**
+ * Converts GitHub-style blockquote callout markers into renderable attributes.
+ *
+ * @param md - The markdown renderer instance to extend.
+ * @returns Nothing.
+ */
+function calloutPlugin(md: MarkdownExit): void {
+  md.core.ruler.after("inline", "callouts", (state: StateCore) => {
+    for (let index = 0; index < state.tokens.length - 2; index += 1) {
+      const blockquoteOpen = state.tokens[index]
+      const paragraphOpen = state.tokens[index + 1]
+      const inline = state.tokens[index + 2]
+
+      if (blockquoteOpen?.type !== "blockquote_open" || paragraphOpen?.type !== "paragraph_open") {
+        continue
+      }
+
+      const calloutType = getCalloutType(inline)
+
+      if (!calloutType) {
+        continue
+      }
+
+      blockquoteOpen.attrJoin("class", `markdown-callout markdown-callout-${calloutType}`)
+      blockquoteOpen.attrSet("data-callout", calloutType)
+      blockquoteOpen.attrSet("data-callout-title", calloutTitles[calloutType])
+      blockquoteOpen.attrSet("aria-label", calloutTitles[calloutType])
+      removeCalloutMarker(inline)
+    }
+  })
+}
+
+/**
  * Creates a markdown renderer with the shared syntax highlighting setup.
  *
  * @param allowHtml - Whether raw HTML in markdown should be rendered.
@@ -80,14 +172,16 @@ const highlighter = createHighlighterCore({
 async function createRenderer(allowHtml: boolean): Promise<MarkdownExit> {
   const loadedHighlighter = await highlighter
 
-  return createMarkdownExit({ linkify: true, html: allowHtml }).use(
-    fromHighlighter(loadedHighlighter, {
-      themes: {
-        dark: "gruvcraft-dark",
-        light: "gruvcraft-light",
-      },
-    }),
-  )
+  return createMarkdownExit({ linkify: true, html: allowHtml })
+    .use(calloutPlugin)
+    .use(
+      fromHighlighter(loadedHighlighter, {
+        themes: {
+          dark: "gruvcraft-dark",
+          light: "gruvcraft-light",
+        },
+      }),
+    )
 }
 
 const markdownRenderer = createRenderer(false)
