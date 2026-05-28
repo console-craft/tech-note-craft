@@ -1,5 +1,6 @@
 ---
 category: React
+order: 5
 ---
 
 # Lists & Keys
@@ -25,7 +26,7 @@ return <ul>{peopleList}</ul>
 
 - WHY keys are important: without stable and unique keys, your components and DOM nodes will be recreated every time: this is both slow, and will also lose any user input inside the list items.
 
-- If the backend doesn't provide stable IDs (and you also can't compute unique IDs based on other data such as slugs, etc), you CAN use something like `crypto.randomUUID()` to generate them on the client, but only in places that don't participate in rerenders: for example when ingesting the data (inside a `useEffect`) or when creating a new item (inside an event handler):
+- If the backend doesn't provide stable IDs (and you also can't compute unique IDs based on other data such as slugs, etc), you CAN use something like `crypto.randomUUID()` to generate them on the client, but only in places that don't participate in re-renders: for example when ingesting the data (inside a `useEffect`) or when creating a new item (inside an event handler):
 
 ```jsx
 function App() {

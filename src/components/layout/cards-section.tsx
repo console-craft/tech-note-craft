@@ -124,6 +124,7 @@ function CardColumns({
               group={note.group}
               category={note.category}
               content={note.content}
+              order={note.order}
               quiz={note.quiz}
               isExpanded={getIsCardExpanded(note.id)}
               onAIChatOpen={onAIChatOpen}

@@ -1,5 +1,6 @@
 ---
 category: Svelte
+order: 1
 ---
 
 # Hello, World!

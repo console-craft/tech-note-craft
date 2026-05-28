@@ -1,5 +1,6 @@
 ---
 category: Quizz
+order: 1
 quiz:
   - type: choice
     question: Which keyword defines a function in Python?

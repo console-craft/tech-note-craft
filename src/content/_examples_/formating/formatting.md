@@ -1,5 +1,6 @@
 ---
 category: Formatting
+order: 1
 ---
 
 # Formatting Example

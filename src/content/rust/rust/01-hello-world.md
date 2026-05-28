@@ -1,5 +1,6 @@
 ---
 category: Rust
+order: 1
 ---
 
 # Hello, World!

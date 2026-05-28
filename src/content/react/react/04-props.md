@@ -1,16 +1,19 @@
 ---
 category: React
+order: 4
 ---
 
 # Props
 
 - component functions accept a single argument, the props object:
+
 ```jsx
 function Avatar(props) {
   const { person, size } = props
   console.log(person, size)
 }
 ```
+
 - use destructuring in the parameter list: `function Avatar({ person, size }) { ... }`
 - use default value:
 
@@ -45,7 +48,7 @@ function Card({ children }) {
 
 <details>
 
-- props are only received on rerender:
+- props are only received on re-render:
 
 ```jsx
 function Parent() {
@@ -55,9 +58,9 @@ function Parent() {
     <Child
       value={valueRef.current} // Child receives 0 on the initial render.
       onClick={() => {
-        // Increments on every click but this does not cause Parent or Child to rerender.
+        // Increments on every click but this does not cause Parent or Child to re-render.
         // Child won't even receive the updated value until Parent renders again for some other reason
-        // (eg. setState, reducer dispatch, context value change, external stores via useSyncExternalStore, or Parent's own parent rerendering.
+        // (eg. setState, reducer dispatch, context value change, external stores via useSyncExternalStore, or Parent's own parent re-rendering.
         valueRef.current += 1
       }}
     />

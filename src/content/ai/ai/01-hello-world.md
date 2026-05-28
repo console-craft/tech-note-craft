@@ -1,5 +1,6 @@
 ---
 category: AI
+order: 1
 ---
 
 # Hello, World!

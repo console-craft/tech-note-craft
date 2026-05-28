@@ -1,5 +1,6 @@
 ---
 category: Mermaid
+order: 1
 ---
 
 # Hello, World!

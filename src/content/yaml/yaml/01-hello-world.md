@@ -1,5 +1,6 @@
 ---
 category: YAML
+order: 1
 ---
 
 # Hello, World!

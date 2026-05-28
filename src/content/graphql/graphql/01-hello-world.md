@@ -1,5 +1,6 @@
 ---
 category: GraphQL
+order: 1
 ---
 
 # Hello, World!

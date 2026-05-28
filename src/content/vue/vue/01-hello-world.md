@@ -1,5 +1,6 @@
 ---
 category: Vue
+order: 1
 ---
 
 # Hello, World!

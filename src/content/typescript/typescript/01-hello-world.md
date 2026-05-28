@@ -1,5 +1,6 @@
 ---
 category: TypeScript
+order: 1
 ---
 
 # Hello, World!

@@ -1,5 +1,6 @@
 ---
 category: Dotfiles
+order: 1
 ---
 
 # Hello, World!

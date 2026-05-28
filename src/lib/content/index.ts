@@ -63,7 +63,20 @@ export type QuizType = ChoiceQuiz | FillQuiz
 interface FrontmatterResult {
   category: string
   content: string
+  order: number
   quiz: QuizType[]
+}
+
+/**
+ * Normalizes the display order from note frontmatter.
+ *
+ * @param value - Raw frontmatter order value.
+ * @returns Positive order number, or 1 when invalid.
+ */
+function normalizeOrder(value: unknown): number {
+  const order = typeof value === "number" ? value : Number(value)
+
+  return Number.isFinite(order) && order > 0 ? order : 1
 }
 
 /**
@@ -111,6 +124,7 @@ interface NoteModule {
   content: string
   data: {
     category?: unknown
+    order?: unknown
     quiz?: unknown
   }
 }
@@ -127,6 +141,7 @@ function normalizeNoteModule(noteModule: NoteModule): FrontmatterResult {
   return {
     category: typeof category === "string" && category.trim() ? category.trim() : "Uncategorized",
     content: noteModule.content,
+    order: normalizeOrder(noteModule.data.order),
     quiz: normalizeQuiz(noteModule.data.quiz),
   }
 }
@@ -163,13 +178,14 @@ export interface Note {
   category: string
   name: string
   content: string
+  order: number
   quiz: QuizType[]
 }
 
 export const notes = Object.entries(noteModules)
   .sort(([left], [right]) => left.localeCompare(right))
   .map(([path, noteModule]) => {
-    const { category, content, quiz } = normalizeNoteModule(noteModule)
+    const { category, content, order, quiz } = normalizeNoteModule(noteModule)
     const group = getGroupFromPath(path)
 
     return {
@@ -178,6 +194,7 @@ export const notes = Object.entries(noteModules)
       group,
       id: path,
       name: getNameFromPath(path),
+      order,
       quiz,
     }
   }) satisfies Note[]

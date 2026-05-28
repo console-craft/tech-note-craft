@@ -1,5 +1,6 @@
 ---
 category: React
+order: 3
 ---
 
 # Conditional Rendering
@@ -65,20 +66,3 @@ const statusMessages = {
 
 return <li className="item">{statusMessages[status]}</li>
 ```
-
-<details>
-
-- object lookup (TS version):
-
-```tsx
-type Status = "packing" | "packed" | "unpacked"
-
-const statusMessages = {
-  packed: `${name} ✅`,
-  unpacked: name,
-} satisfies Record<Status, React.ReactNode>
-
-return <li className="item">{statusMessages[status]}</li>
-```
-
-</details>
