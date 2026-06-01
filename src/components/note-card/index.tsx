@@ -107,9 +107,9 @@ export function NoteCard({
     >
       <CardHeader>
         <CardTitle>
-          <div className="flex items-center gap-2">
+          <div className="flex items-start gap-2">
             <button
-              className="flex min-w-0 flex-1 items-center gap-2 text-left text-xl font-extrabold text-balance outline-none transition-colors hover:text-primary focus-visible:text-primary"
+              className="flex min-w-0 h-10 flex-1 items-start gap-2 text-left text-xl font-extrabold text-balance outline-none transition-colors hover:text-primary focus-visible:text-primary"
               type="button"
               aria-expanded={isExpanded}
               onClick={() => onExpandedChange(!isExpanded)}
@@ -117,7 +117,7 @@ export function NoteCard({
               <span className="flex items-center gap-2 text-primary">
                 <GroupIcon />
               </span>
-              <span className="min-w-0 flex-1">{title}</span>
+              <span className="min-w-0 flex-1 leading-5">{title}</span>
             </button>
             <Button
               variant="ghost"

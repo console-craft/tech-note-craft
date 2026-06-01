@@ -63,6 +63,7 @@ export type QuizType = ChoiceQuiz | FillQuiz
 interface FrontmatterResult {
   category: string
   content: string
+  draft: boolean
   order: number
   quiz: QuizType[]
 }
@@ -124,6 +125,7 @@ interface NoteModule {
   content: string
   data: {
     category?: unknown
+    draft?: unknown
     order?: unknown
     quiz?: unknown
   }
@@ -141,6 +143,7 @@ function normalizeNoteModule(noteModule: NoteModule): FrontmatterResult {
   return {
     category: typeof category === "string" && category.trim() ? category.trim() : "Uncategorized",
     content: noteModule.content,
+    draft: noteModule.data.draft === true,
     order: normalizeOrder(noteModule.data.order),
     quiz: normalizeQuiz(noteModule.data.quiz),
   }
@@ -184,19 +187,26 @@ export interface Note {
 
 export const notes = Object.entries(noteModules)
   .sort(([left], [right]) => left.localeCompare(right))
-  .map(([path, noteModule]) => {
-    const { category, content, order, quiz } = normalizeNoteModule(noteModule)
+  .flatMap(([path, noteModule]): Note[] => {
+    const { category, content, draft, order, quiz } = normalizeNoteModule(noteModule)
+
+    if (draft) {
+      return []
+    }
+
     const group = getGroupFromPath(path)
 
-    return {
-      category,
-      content,
-      group,
-      id: path,
-      name: getNameFromPath(path),
-      order,
-      quiz,
-    }
+    return [
+      {
+        category,
+        content,
+        group,
+        id: path,
+        name: getNameFromPath(path),
+        order,
+        quiz,
+      },
+    ]
   }) satisfies Note[]
 
 interface ContentCategory {
