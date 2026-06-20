@@ -27,6 +27,16 @@ export function createBrowserHref(to: string): string {
 }
 
 /**
+ * Converts an app-internal route into an absolute browser URL.
+ *
+ * @param to - App route beginning with `/`, optionally including a hash.
+ * @returns Absolute browser URL including the configured Vite base path.
+ */
+export function createAbsoluteBrowserHref(to: string): string {
+  return new URL(createBrowserHref(to), window.location.origin).href
+}
+
+/**
  * Gets the current browser route including hash state.
  *
  * @returns Current pathname and hash.

@@ -1,5 +1,6 @@
 import type { CSSProperties, ReactElement, ReactNode } from "react"
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
+import { Spinner } from "@/components/ui/spinner"
 import { copyTextToClipboard } from "@/lib/browser/clipboard"
 import { cn } from "@/lib/utils"
 
@@ -41,20 +42,23 @@ const codeBlockCopyButtonClassName = cn(
   "hover:bg-background hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
 )
 
-type CodeBlockCopyControl = { button: HTMLButtonElement; cleanup: () => void }
+const codeBlockScrollbarVisibilityDuration = 400
+
+type CodeBlockControl = { button: HTMLButtonElement; cleanup: () => void }
 
 /**
- * Creates a copy button for a rendered markdown code block.
+ * Creates interactive controls for a rendered markdown code block.
  *
  * @param code - The rendered code element whose text should be copied.
  * @param pre - The rendered pre element that owns the code block.
  * @param wrapper - The positional wrapper added around the pre element.
- * @returns The configured copy button and cleanup callback.
+ * @returns The configured code block controls and cleanup callback.
  */
-function createCodeBlockCopyButton(code: HTMLElement, pre: HTMLElement, wrapper: HTMLDivElement): CodeBlockCopyControl {
+function createCodeBlockControls(code: HTMLElement, pre: HTMLElement, wrapper: HTMLDivElement): CodeBlockControl {
   const abortController = new AbortController()
   const button = document.createElement("button")
   let clearActiveTimeout: number | undefined
+  let hideScrollbarTimeout: number | undefined
   let resetLabelTimeout: number | undefined
 
   const clearCopyActive = () => {
@@ -128,13 +132,28 @@ function createCodeBlockCopyButton(code: HTMLElement, pre: HTMLElement, wrapper:
     { signal: abortController.signal },
   )
 
+  pre.addEventListener(
+    "scroll",
+    () => {
+      window.clearTimeout(hideScrollbarTimeout)
+      pre.dataset.scrolling = "true"
+
+      hideScrollbarTimeout = window.setTimeout(() => {
+        delete pre.dataset.scrolling
+      }, codeBlockScrollbarVisibilityDuration)
+    },
+    { passive: true, signal: abortController.signal },
+  )
+
   return {
     button,
     cleanup: () => {
       abortController.abort()
       window.clearTimeout(clearActiveTimeout)
+      window.clearTimeout(hideScrollbarTimeout)
       window.clearTimeout(resetLabelTimeout)
       button.remove()
+      delete pre.dataset.scrolling
 
       if (wrapper.parentElement && pre.parentElement === wrapper) {
         wrapper.parentElement.insertBefore(pre, wrapper)
@@ -151,7 +170,7 @@ function createCodeBlockCopyButton(code: HTMLElement, pre: HTMLElement, wrapper:
  * @returns A cleanup function for timers and event targets owned by the enhancement.
  */
 function addCodeBlockCopyButtons(container: HTMLElement): () => void {
-  const controls: CodeBlockCopyControl[] = []
+  const controls: CodeBlockControl[] = []
   const codeBlocks = container.querySelectorAll<HTMLElement>("pre > code")
 
   for (const code of codeBlocks) {
@@ -162,7 +181,7 @@ function addCodeBlockCopyButtons(container: HTMLElement): () => void {
     }
 
     const wrapper = document.createElement("div")
-    const control = createCodeBlockCopyButton(code, pre, wrapper)
+    const control = createCodeBlockControls(code, pre, wrapper)
 
     wrapper.className = "relative group/code-block"
     pre.parentElement.insertBefore(wrapper, pre)
@@ -183,6 +202,25 @@ interface MarkdownContentProps {
   className?: string
   content: string
   emptyMessage?: string
+  pendingFallback?: ReactNode
+}
+
+interface MarkdownContentLoadingProps {
+  label: string
+}
+
+/**
+ * Renders the markdown loading state without visible text.
+ *
+ * @param props - Accessible label for the loading indicator.
+ * @returns Centered animated spinner for pending markdown content.
+ */
+function MarkdownContentLoading({ label }: MarkdownContentLoadingProps): ReactElement {
+  return (
+    <div className="flex items-center justify-center py-3 text-muted-foreground">
+      <Spinner aria-label={label} className="size-5" />
+    </div>
+  )
 }
 
 /**
@@ -197,13 +235,16 @@ export function MarkdownContent({
   className,
   content,
   emptyMessage = "No content.",
+  pendingFallback,
 }: MarkdownContentProps): ReactElement {
   const [html, setHtml] = useState("")
   const [error, setError] = useState<string | null>(null)
+  const [isRendering, setIsRendering] = useState(true)
   const renderedContentRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     let ignore = false
+    setIsRendering(true)
 
     void (async () => {
       try {
@@ -213,11 +254,13 @@ export function MarkdownContent({
         if (!ignore) {
           setError(null)
           setHtml(rendered)
+          setIsRendering(false)
         }
       } catch (cause) {
         if (!ignore) {
           setError(cause instanceof Error ? cause.message : "Unable to render markdown.")
           setHtml("")
+          setIsRendering(false)
         }
       }
     })()
@@ -242,6 +285,10 @@ export function MarkdownContent({
   }
 
   if (!html) {
+    if (isRendering && pendingFallback) {
+      return <>{pendingFallback}</>
+    }
+
     return <p className="text-sm text-muted-foreground">{emptyMessage}</p>
   }
 
@@ -304,9 +351,13 @@ export function DeferredMarkdownContent({
   return (
     <div ref={containerRef}>
       {shouldRender ? (
-        <MarkdownContent emptyMessage={emptyMessage} {...props} />
+        <MarkdownContent
+          emptyMessage={emptyMessage}
+          pendingFallback={<MarkdownContentLoading label={emptyMessage} />}
+          {...props}
+        />
       ) : (
-        <p className="text-sm text-muted-foreground">{emptyMessage}</p>
+        <MarkdownContentLoading label={emptyMessage} />
       )}
     </div>
   )

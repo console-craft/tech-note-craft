@@ -160,6 +160,16 @@ function getGroupFromPath(path: string): string {
 }
 
 /**
+ * Gets the content category slug from an import path.
+ *
+ * @param path - Vite import path for a markdown file.
+ * @returns Second-level content folder slug, or `notes` when absent.
+ */
+function getCategorySlugFromPath(path: string): string {
+  return path.replace(/^\.\.\/\.\.\/content\//, "").split("/")[1] ?? "notes"
+}
+
+/**
  * Gets a stable note name from an import path.
  *
  * @param path - Vite import path for a markdown file.
@@ -180,6 +190,7 @@ export interface Note {
   group: string
   category: string
   name: string
+  permalinkPath: string
   content: string
   order: number
   quiz: QuizType[]
@@ -195,6 +206,8 @@ export const notes = Object.entries(noteModules)
     }
 
     const group = getGroupFromPath(path)
+    const categorySlug = getCategorySlugFromPath(path)
+    const name = getNameFromPath(path)
 
     return [
       {
@@ -202,8 +215,9 @@ export const notes = Object.entries(noteModules)
         content,
         group,
         id: path,
-        name: getNameFromPath(path),
+        name,
         order,
+        permalinkPath: `/${group}/${categorySlug}/${name}`,
         quiz,
       },
     ]
@@ -235,4 +249,4 @@ export const contentGroups = Array.from(new Set(notes.map((note) => note.group))
   }
 }) satisfies ContentGroup[]
 
-export const routePaths = ["/", ...contentGroups.map((group) => group.path)]
+export const routePaths = ["/", ...contentGroups.map((group) => group.path), ...notes.map((note) => note.permalinkPath)]

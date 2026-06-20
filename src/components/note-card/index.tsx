@@ -1,5 +1,4 @@
 import type { MouseEvent, ReactElement } from "react"
-import { useState } from "react"
 import { DeferredMarkdownContent } from "@/components/core/markdown-content"
 import { NoteCardActions } from "@/components/note-card/actions"
 import { QuizCarousel } from "@/components/note-card/quiz-carousel"
@@ -7,7 +6,8 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { createBrowserHref } from "@/lib/browser/routing"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
+import { createAbsoluteBrowserHref, createBrowserHref } from "@/lib/browser/routing"
 import type { QuizType } from "@/lib/content"
 import { getGroupIcon } from "@/lib/content/group-icons"
 import { cn } from "@/lib/utils"
@@ -60,8 +60,10 @@ interface NoteCardProps {
   category: string
   content: string
   order: number
+  permalinkPath: string
   quiz: QuizType[]
   isExpanded: boolean
+  isPreviewOpen: boolean
   onAIChatOpen: (chat: ActiveAIChat) => void
   onExpandedChange: (isExpanded: boolean) => void
   onNavigate: (to: string) => void
@@ -80,13 +82,14 @@ export function NoteCard({
   category,
   content,
   order,
+  permalinkPath,
   quiz,
   isExpanded,
+  isPreviewOpen,
   onAIChatOpen,
   onExpandedChange,
   onNavigate,
 }: NoteCardProps): ReactElement {
-  const [isPreviewOpen, setIsPreviewOpen] = useState(false)
   const { body, title } = getCardContent(content)
   const categoryHref = `/${group}#${encodeURIComponent(category)}`
   const GroupIcon = getGroupIcon(group)
@@ -96,11 +99,16 @@ export function NoteCard({
     onNavigate(categoryHref)
   }
 
+  function updatePreviewRoute(isOpen: boolean): void {
+    onNavigate(isOpen ? permalinkPath : categoryHref)
+  }
+
   return (
     <Card
       data-ai-chat-card-id={cardId}
       className={cn(
         "w-full transition-[box-shadow] data-[ai-chat-highlighted=true]:animate-pulse data-[ai-chat-highlighted=true]:ring-2 data-[ai-chat-highlighted=true]:ring-primary/70",
+        isExpanded && "h-[400px]",
         className,
       )}
       size="sm"
@@ -119,27 +127,41 @@ export function NoteCard({
               </span>
               <span className="min-w-0 flex-1 leading-5">{title}</span>
             </button>
-            <Button
-              variant="ghost"
-              size="icon-sm"
-              type="button"
-              className="text-border hover:bg-transparent hover:text-border aria-expanded:bg-transparent aria-expanded:text-border [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover/card:opacity-100 [@media(hover:hover)]:group-focus-within/card:opacity-100 [@media(hover:none)]:hidden"
-              aria-label={`Open ${title} in a large preview`}
-              onClick={() => setIsPreviewOpen(true)}
-            >
-              <IconArrowsMaximize data-icon="inline-start" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon-sm"
-              type="button"
-              className="text-border hover:bg-transparent hover:text-border aria-expanded:bg-transparent aria-expanded:text-border [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover/card:opacity-100 [@media(hover:hover)]:group-focus-within/card:opacity-100"
-              aria-label={isExpanded ? `Collapse ${title}` : `Expand ${title}`}
-              aria-expanded={isExpanded}
-              onClick={() => onExpandedChange(!isExpanded)}
-            >
-              {isExpanded ? <IconChevronUp data-icon="inline-start" /> : <IconChevronDown data-icon="inline-start" />}
-            </Button>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon-sm"
+                  type="button"
+                  className="text-border hover:bg-transparent hover:text-border aria-expanded:bg-transparent aria-expanded:text-border [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover/card:opacity-100 [@media(hover:hover)]:group-focus-within/card:opacity-100"
+                  aria-label={`Open ${title} in a large preview`}
+                  onClick={() => onNavigate(permalinkPath)}
+                >
+                  <IconArrowsMaximize data-icon="inline-start" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>Open large preview</TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon-sm"
+                  type="button"
+                  className="text-border hover:bg-transparent hover:text-border aria-expanded:bg-transparent aria-expanded:text-border [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover/card:opacity-100 [@media(hover:hover)]:group-focus-within/card:opacity-100"
+                  aria-label={isExpanded ? `Collapse ${title}` : `Expand ${title}`}
+                  aria-expanded={isExpanded}
+                  onClick={() => onExpandedChange(!isExpanded)}
+                >
+                  {isExpanded ? (
+                    <IconChevronUp data-icon="inline-start" />
+                  ) : (
+                    <IconChevronDown data-icon="inline-start" />
+                  )}
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>{isExpanded ? "Collapse card" : "Expand card"}</TooltipContent>
+            </Tooltip>
             <span className="flex size-6 shrink-0 items-center justify-center rounded-full border border-border text-sm font-semibold tabular-nums text-border">
               {order}
             </span>
@@ -154,7 +176,7 @@ export function NoteCard({
         </CardTitle>
       </CardHeader>
       {isExpanded ? (
-        <CardContent>
+        <CardContent className="note-card-inline-content min-h-0 flex-1 overflow-auto [&_pre]:max-h-[230px] [&_pre]:overflow-auto">
           <NoteCardBody body={body} quiz={quiz} />
         </CardContent>
       ) : null}
@@ -163,17 +185,21 @@ export function NoteCard({
           group={group}
           category={category}
           content={content}
+          permalinkUrl={createAbsoluteBrowserHref(permalinkPath)}
           onAskAI={() => onAIChatOpen({ cardId, group, category, content, title })}
         />
       ) : null}
-      <Dialog open={isPreviewOpen} onOpenChange={setIsPreviewOpen}>
+      <Dialog open={isPreviewOpen} onOpenChange={updatePreviewRoute}>
         <DialogContent className="max-h-[calc(100dvh-2rem)] gap-0 overflow-hidden p-0 sm:max-w-[min(80rem,calc(100%-2rem))]">
           <DialogHeader className="border-b p-4 pr-12">
-            <DialogTitle className="flex items-center gap-2 text-xl font-extrabold text-balance">
+            <DialogTitle className="flex w-full items-start gap-2 text-xl font-extrabold text-balance">
               <span className="flex items-center gap-2 text-primary">
                 <GroupIcon />
               </span>
-              <span>{title}</span>
+              <span className="min-w-0 flex-1">{title}</span>
+              <span className="flex size-6 shrink-0 items-center justify-center rounded-full border border-border text-sm font-semibold tabular-nums text-border">
+                {order}
+              </span>
             </DialogTitle>
             <div className="flex">
               <Badge variant="secondary" className="text-primary">

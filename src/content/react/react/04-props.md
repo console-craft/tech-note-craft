@@ -46,9 +46,8 @@ function Card({ children }) {
 
 - Props are **immutable** read-only snapshots in time: every render receives a new version of props. You can’t change props. When you need updates, you’ll need to set state.
 
-<details>
-
-- props are only received on re-render:
+> [!important]
+> Props are only received on re-render (and updated props don't trigger re-renders themselves)!
 
 ```jsx
 function Parent() {
@@ -68,4 +67,11 @@ function Parent() {
 }
 ```
 
-</details>
+> [!important]
+> Don't mirror props in state! When a component receives new props, its internal state does not automatically update to reflect the new props.
+
+```jsx
+function MyComponent({ color }) {
+  const [currentColor, setCurrentColor] = useState(color) // 🔴 This will only set the initial state to the value of `color` on the first render. Subsequent updates to `color` will not update `currentColor`.
+```
+

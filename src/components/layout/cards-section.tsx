@@ -82,6 +82,7 @@ function useResponsiveColumnCount(ref: RefObject<HTMLDivElement | null>): 1 | 2 
 
 interface CardColumnsProps {
   notes: Note[]
+  activePreviewCardId?: string
   onNavigate: (to: string) => void
   getIsCardExpanded: (cardId: string) => boolean
   onCardExpandedChange: (cardId: string, isExpanded: boolean) => void
@@ -96,6 +97,7 @@ interface CardColumnsProps {
  */
 function CardColumns({
   notes: noteList,
+  activePreviewCardId,
   onNavigate,
   getIsCardExpanded,
   onCardExpandedChange,
@@ -125,8 +127,10 @@ function CardColumns({
               category={note.category}
               content={note.content}
               order={note.order}
+              permalinkPath={note.permalinkPath}
               quiz={note.quiz}
               isExpanded={getIsCardExpanded(note.id)}
+              isPreviewOpen={activePreviewCardId === note.id}
               onAIChatOpen={onAIChatOpen}
               onExpandedChange={(isExpanded) => onCardExpandedChange(note.id, isExpanded)}
               onNavigate={onNavigate}
@@ -175,6 +179,7 @@ function getUniqueNoteValues(noteList: Note[], field: "category" | "group"): str
 
 interface CardsSectionProps {
   notes: Note[]
+  activePreviewCardId?: string
   showFilter?: boolean
   showGroupFilter?: boolean
   getIsCardExpanded: (cardId: string) => boolean
@@ -191,6 +196,7 @@ interface CardsSectionProps {
  */
 export function CardsSection({
   notes,
+  activePreviewCardId,
   showFilter = false,
   showGroupFilter = false,
   getIsCardExpanded,
@@ -260,6 +266,7 @@ export function CardsSection({
       ) : null}
       <CardColumns
         notes={filteredNotes}
+        activePreviewCardId={activePreviewCardId}
         onNavigate={onNavigate}
         getIsCardExpanded={getIsCardExpanded}
         onCardExpandedChange={onCardExpandedChange}

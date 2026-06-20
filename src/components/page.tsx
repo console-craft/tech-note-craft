@@ -43,11 +43,14 @@ export function Page({
   onCardExpandedChange,
   onNavigate,
 }: PageProps): ReactElement {
-  const activeGroup = contentGroups.find((group) => group.path === path)
+  const activePermalinkNote = notes.find((note) => note.permalinkPath === path)
+  const pagePath = activePermalinkNote ? `/${activePermalinkNote.group}` : path
+  const activeGroup = contentGroups.find((group) => group.path === pagePath)
   const groupNotes = activeGroup ? notes.filter((note) => note.group === activeGroup.path.slice(1)) : notes
   const categoryTitles = activeGroup?.categories.map((category) => category.title) ?? []
   const hashCategory = getHashValue(href)
-  const activeCategory = categoryTitles.includes(hashCategory) ? hashCategory : categoryTitles[0]
+  const activeCategory =
+    activePermalinkNote?.category ?? (categoryTitles.includes(hashCategory) ? hashCategory : categoryTitles[0])
   const pageTitle = activeGroup ? activeGroup.title : "What do you want to learn today?"
   const pageDescription = activeGroup
     ? "Get started by reading a note card, or ask AI for personalized guidance."
@@ -59,7 +62,7 @@ export function Page({
    * @param category - Selected category tab value.
    */
   function navigateToCategory(category: string): void {
-    onNavigate(`${path}#${encodeURIComponent(category)}`)
+    onNavigate(`${pagePath}#${encodeURIComponent(category)}`)
   }
 
   return (
@@ -98,6 +101,7 @@ export function Page({
               <CardsSection
                 notes={groupNotes.filter((note) => note.category === category.title)}
                 showFilter
+                activePreviewCardId={activePermalinkNote?.id}
                 getIsCardExpanded={getIsCardExpanded}
                 onAIChatOpen={onAIChatOpen}
                 onCardExpandedChange={onCardExpandedChange}
@@ -111,6 +115,7 @@ export function Page({
           notes={groupNotes}
           showFilter
           showGroupFilter
+          activePreviewCardId={activePermalinkNote?.id}
           getIsCardExpanded={getIsCardExpanded}
           onAIChatOpen={onAIChatOpen}
           onCardExpandedChange={onCardExpandedChange}

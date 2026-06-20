@@ -6,7 +6,7 @@ order: 11
 # Batching updates
 
 > [!caution] 
-> React waits until all code in the event handlers has run before processing your state updates!
+> React waits until all code in the event handlers has run before processing your state updates! If you need the next state value in your event handler, you should use the updater function form of `setState` (which can calculate the next value based on queued updates) instead of reading the state variable directly.
 
 
 ```jsx
