@@ -201,7 +201,7 @@ interface MarkdownContentProps {
   children?: ReactNode
   className?: string
   content: string
-  emptyMessage?: string
+  emptyMessage?: ReactElement
   pendingFallback?: ReactNode
 }
 
@@ -234,7 +234,7 @@ export function MarkdownContent({
   children,
   className,
   content,
-  emptyMessage = "No content.",
+  emptyMessage = <Spinner aria-label="Loading content..." className="size-5" />,
   pendingFallback,
 }: MarkdownContentProps): ReactElement {
   const [html, setHtml] = useState("")
@@ -311,7 +311,7 @@ interface DeferredMarkdownContentProps extends MarkdownContentProps {
  * @returns Deferred markdown content or a lightweight placeholder.
  */
 export function DeferredMarkdownContent({
-  emptyMessage = "Loading content...",
+  emptyMessage = <Spinner aria-label="Loading content..." className="size-5" />,
   rootMargin = "600px 0px",
   ...props
 }: DeferredMarkdownContentProps): ReactElement {
@@ -353,11 +353,11 @@ export function DeferredMarkdownContent({
       {shouldRender ? (
         <MarkdownContent
           emptyMessage={emptyMessage}
-          pendingFallback={<MarkdownContentLoading label={emptyMessage} />}
+          pendingFallback={<MarkdownContentLoading label="Loading content..." />}
           {...props}
         />
       ) : (
-        <MarkdownContentLoading label={emptyMessage} />
+        <MarkdownContentLoading label="Loading content..." />
       )}
     </div>
   )
