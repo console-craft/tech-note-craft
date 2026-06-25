@@ -1,6 +1,56 @@
 ---
 category: React
 order: 16
+quiz:
+  - type: choice
+    question: "What do refs remember?"
+    options: ["Values between re-renders", "Only props", "Only JSX tags", "Only CSS classes"]
+    answers: ["Values between re-renders"]
+
+  - type: choice
+    question: "Do ref updates trigger a re-render?"
+    options: ["No", "Yes", "Only DOM refs do", "Only timer refs do"]
+    answers: ["No"]
+
+  - type: choice
+    question: "Which property stores a ref value?"
+    options: ["current", "value", "state", "props"]
+    answers: ["current"]
+
+  - type: choice
+    question: "Where should you usually read or write refs?"
+    options: ["Event handlers or effects", "During rendering", "Inside JSX text", "Inside dependency arrays only"]
+    answers: ["Event handlers or effects"]
+
+  - type: choice
+    question: "Why avoid reading refs during rendering?"
+    options: ["It breaks rendering as a pure calculation", "It always throws", "It triggers infinite loops", "It mutates props"]
+    answers: ["It breaks rendering as a pure calculation"]
+
+  - type: choice
+    question: "What is a common use case for refs?"
+    options: ["Accessing DOM elements directly", "Replacing every state variable", "Creating list keys", "Rendering markdown"]
+    answers: ["Accessing DOM elements directly"]
+
+  - type: choice
+    question: "What can refs track besides DOM nodes?"
+    options: ["Timeouts, intervals, and event listeners", "Only props", "Only categories", "Only routes"]
+    answers: ["Timeouts, intervals, and event listeners"]
+
+  - type: choice
+    question: "What can ref callbacks help with?"
+    options: ["Assigning refs dynamically", "Calling hooks in loops", "Mutating props", "Skipping cleanup"]
+    answers: ["Assigning refs dynamically"]
+
+  - type: fill
+    question: "Complete the ref declaration and update."
+    text: "const ref = useRef(0)\nref.current = ref.current + 1"
+    blanks: ["useRef", "current", "current"]
+
+  - type: fill
+    question: "Complete the DOM focus ref example."
+    text: "const inputRef = useRef(null)\ninputRef.current.focus()\nreturn <input ref={inputRef} />"
+    blanks: ["inputRef", "current", "ref"]
 ---
 
 # Refs

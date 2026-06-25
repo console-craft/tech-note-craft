@@ -1,6 +1,56 @@
 ---
 category: FastAPI
 order: 2
+quiz:
+  - type: choice
+    question: "Which library performs runtime validation and parsing in the note?"
+    options: ["Pydantic", "Dataclasses", "Uvicorn", "AnyIO"]
+    answers: ["Pydantic"]
+
+  - type: choice
+    question: "What does extending BaseModel create when given external data?"
+    options: ["A Pydantic model instance", "A plain string", "A route decorator", "A virtual environment"]
+    answers: ["A Pydantic model instance"]
+
+  - type: choice
+    question: "What can Pydantic do with compatible input values?"
+    options: ["Validate and parse them", "Start the server", "Create a venv", "Declare a route"]
+    answers: ["Validate and parse them"]
+
+  - type: choice
+    question: "Which data source is Pydantic especially good for?"
+    options: ["External or untrusted data", "Only trusted local constants", "Only static type checker output", "Only comments"]
+    answers: ["External or untrusted data"]
+
+  - type: choice
+    question: "Can Pydantic model classes also be used as static type annotations?"
+    options: ["Yes", "No", "Only in JavaScript", "Only for dataclasses"]
+    answers: ["Yes"]
+
+  - type: choice
+    question: "What default name is used in the User model example?"
+    options: ["John Doe", "Alice", "FastAPI", "Unknown"]
+    answers: ["John Doe"]
+
+  - type: choice
+    question: "In the FastAPI example, which model is used for untrusted request input?"
+    options: ["CreateReminderRequest", "ReminderDraft", "ReminderResponse", "FastAPI"]
+    answers: ["CreateReminderRequest"]
+
+  - type: choice
+    question: "What does response_model help FastAPI validate, document, and serialize?"
+    options: ["The response", "The virtual environment", "The database driver", "The Python runtime"]
+    answers: ["The response"]
+
+  - type: fill
+    question: "Complete the Pydantic model class definition."
+    text: "class User(BaseModel):\n    id: int\n    name: str = \"John Doe\""
+    blanks: ["BaseModel", "int", "str"]
+
+  - type: fill
+    question: "Complete the FastAPI response model decorator."
+    text: "@app.post(\"/reminders\", response_model=ReminderResponse)"
+    blanks: ["post", "response_model", "ReminderResponse"]
 ---
 
 # Runtime validation and parsing

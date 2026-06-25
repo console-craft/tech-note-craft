@@ -1,6 +1,56 @@
 ---
 category: FastAPI
 order: 27
+quiz:
+  - type: choice
+    question: "What do __init__.py files define for importable code?"
+    options: ["a package", "a route", "a response", "a dependency"]
+    answers: ["a package"]
+
+  - type: choice
+    question: "Which FastAPI class is used to group routes in separate files?"
+    options: ["APIRouter", "FastAPI", "Depends", "HTTPException"]
+    answers: ["APIRouter"]
+
+  - type: choice
+    question: "Which router prefix is configured in app/routers/items.py?"
+    options: ["/items", "/admin", "/users", "/api/v1"]
+    answers: ["/items"]
+
+  - type: choice
+    question: "Which dependency is applied to all routes in the items router?"
+    options: ["get_token_header", "get_query_token", "read_items", "read_user"]
+    answers: ["get_token_header"]
+
+  - type: choice
+    question: "Which dependency is configured globally on the FastAPI app?"
+    options: ["get_query_token", "get_token_header", "read_users", "update_item"]
+    answers: ["get_query_token"]
+
+  - type: choice
+    question: "Which function attaches routers to the main app?"
+    options: ["include_router", "APIRouter", "Depends", "router.get"]
+    answers: ["include_router"]
+
+  - type: choice
+    question: "Which routers are imported in app/main.py?"
+    options: ["items", "users", "admin", "auth"]
+    answers: ["items", "users", "admin"]
+
+  - type: choice
+    question: "What happens if a router prefix and include_router prefix are both defined?"
+    options: ["they are combined", "the router prefix is ignored", "the app fails", "only tags are combined"]
+    answers: ["they are combined"]
+
+  - type: fill
+    question: "Complete the router include call."
+    text: "app.include_router(items.router)"
+    blanks: ["include_router", "items", "router"]
+
+  - type: fill
+    question: "Complete the items router configuration."
+    text: "router = APIRouter(prefix='/items', tags=['items'], dependencies=[Depends(get_token_header)])"
+    blanks: ["APIRouter", "prefix", "tags", "dependencies"]
 ---
 
 # Splitting applications

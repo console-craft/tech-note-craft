@@ -1,6 +1,56 @@
 ---
 category: FastAPI
 order: 1
+quiz:
+  - type: choice
+    question: "How does the Python runtime treat type annotations by itself?"
+    options: ["Mostly ignores them", "Always enforces them", "Deletes them", "Compiles them to JSON"]
+    answers: ["Mostly ignores them"]
+
+  - type: choice
+    question: "Which module provides TypedDict, Literal, Optional, and Any?"
+    options: ["typing", "types", "pydantic", "dataclasses"]
+    answers: ["typing"]
+
+  - type: choice
+    question: "Which annotation means the argument can be an int or a str?"
+    options: ["int | str", "int & str", "int, str", "Optional[int]"]
+    answers: ["int | str"]
+
+  - type: choice
+    question: "Which annotation allows None as the default value for name?"
+    options: ["str | None", "Literal[str]", "TypedDict", "Any[str]"]
+    answers: ["str | None"]
+
+  - type: choice
+    question: "When should you use a TypedDict according to the note?"
+    options: ["For fixed-schema dict-like data", "For adding domain methods", "For dynamic local keys only", "For runtime validation"]
+    answers: ["For fixed-schema dict-like data"]
+
+  - type: choice
+    question: "When is a dataclass a good fit?"
+    options: ["For trusted internal domain objects", "For API boundary validation", "For dynamic JSON keys only", "For replacing all dicts"]
+    answers: ["For trusted internal domain objects"]
+
+  - type: choice
+    question: "What does Annotated let you attach to a type annotation?"
+    options: ["Metadata", "A coroutine", "A route", "A package lock"]
+    answers: ["Metadata"]
+
+  - type: choice
+    question: "Which tools listed are static type checkers?"
+    options: ["Mypy", "Pyright", "BasedPyright", "Uvicorn"]
+    answers: ["Mypy", "Pyright", "BasedPyright"]
+
+  - type: fill
+    question: "Complete the typed function signature."
+    text: "def some_function(username: str, data: Any) -> None:"
+    blanks: ["str", "Any", "None"]
+
+  - type: fill
+    question: "Complete the Pydantic field metadata example."
+    text: "name: Annotated[str, Field(min_length=2, max_length=50)]"
+    blanks: ["Annotated", "Field", "min_length"]
 ---
 
 # Types in Python

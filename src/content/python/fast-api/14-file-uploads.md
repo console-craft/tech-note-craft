@@ -1,6 +1,56 @@
 ---
 category: FastAPI
 order: 14
+quiz:
+  - type: choice
+    question: Which package is needed to use file uploads?
+    options: [python-multipart, pydantic, uvicorn, sqlalchemy]
+    answers: [python-multipart]
+
+  - type: choice
+    question: Which FastAPI helper marks raw bytes as an uploaded file?
+    options: [File, Form, Cookie, Header]
+    answers: [File]
+
+  - type: choice
+    question: Which type is recommended for large uploaded files?
+    options: [UploadFile, bytes, str, HTMLResponse]
+    answers: [UploadFile]
+
+  - type: choice
+    question: Why is bytes not recommended for large files in the example?
+    options: [stored in memory, stored in a temporary file first, missing filename, missing content_type]
+    answers: [stored in memory]
+
+  - type: choice
+    question: What does create_file return?
+    options: [file_size, filename, content_type, filenames]
+    answers: [file_size]
+
+  - type: choice
+    question: What does create_upload_file return?
+    options: [filename, content_type, file_size, file_sizes]
+    answers: [filename, content_type]
+
+  - type: choice
+    question: Which response class renders the upload forms?
+    options: [HTMLResponse, JSONResponse, RedirectResponse, Response]
+    answers: [HTMLResponse]
+
+  - type: choice
+    question: Which HTML attribute allows selecting multiple files?
+    options: [multiple, enctype, method, action]
+    answers: [multiple]
+
+  - type: fill
+    question: Complete the upload type comparison.
+    text: "bytes stores the file in memory, while UploadFile can use a temporary file."
+    blanks: [bytes, memory, UploadFile]
+
+  - type: fill
+    question: Complete the multiple upload route names.
+    text: "The forms post to /files for bytes and /uploadfiles for UploadFile."
+    blanks: [/files, bytes, /uploadfiles, UploadFile]
 ---
 
 # File Uploads

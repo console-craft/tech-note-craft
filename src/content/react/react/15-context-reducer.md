@@ -1,6 +1,56 @@
 ---
 category: React
 order: 15
+quiz:
+  - type: choice
+    question: "What pattern does this card combine?"
+    options: ["Context and reducer", "Refs and effects", "Fragments and keys", "JSX and CSS"]
+    answers: ["Context and reducer"]
+
+  - type: choice
+    question: "Why can the shown context reducer example be inefficient for large frequent global state changes?"
+    options: ["Consumers subscribe to the entire tasks object", "Reducers cannot return objects", "Context cannot hold arrays", "Forms cannot dispatch actions"]
+    answers: ["Consumers subscribe to the entire tasks object"]
+
+  - type: choice
+    question: "What happens when newTaskText changes in the warning?"
+    options: ["Every TasksContext consumer can re-render", "Only no consumers re-render", "The reducer becomes impure", "The provider unmounts"]
+    answers: ["Every TasksContext consumer can re-render"]
+
+  - type: choice
+    question: "When can re-rendering every context consumer be fine?"
+    options: ["Infrequent or scoped changes", "Every key press in large app-wide state", "Random values in reducers", "Nested Hook calls"]
+    answers: ["Infrequent or scoped changes"]
+
+  - type: choice
+    question: "What is preferred for app-wide frequent changes in the note?"
+    options: ["Zustand", "Nested providers for every field", "useId", "Default form submit"]
+    answers: ["Zustand"]
+
+  - type: choice
+    question: "Which context stores tasks state?"
+    options: ["TasksContext", "TasksDispatchContext", "ThemeContext", "CurrentUserContext"]
+    answers: ["TasksContext"]
+
+  - type: choice
+    question: "Which context stores dispatch?"
+    options: ["TasksDispatchContext", "TasksContext", "CurrentUserContext", "StatusContext"]
+    answers: ["TasksDispatchContext"]
+
+  - type: choice
+    question: "What should useTasks throw if called outside TasksProvider?"
+    options: ["An error", "null", "initialTasks", "A new provider"]
+    answers: ["An error"]
+
+  - type: fill
+    question: "Complete the provider reducer setup."
+    text: "const [tasks, dispatch] = useReducer(tasksReducer, initialTasks)"
+    blanks: ["tasks", "dispatch", "useReducer"]
+
+  - type: fill
+    question: "Complete the two context names."
+    text: "export const TasksContext = createContext(null)\nexport const TasksDispatchContext = createContext(null)"
+    blanks: ["TasksContext", "TasksDispatchContext", "createContext"]
 ---
 
 # Context Reducer
@@ -172,4 +222,3 @@ function TasksList() {
   )
 }
 ```
-

@@ -1,6 +1,56 @@
 ---
 category: React
 order: 12
+quiz:
+  - type: choice
+    question: "What should you avoid storing in state?"
+    options: ["Duplicated data", "User input text", "A status string", "An error message"]
+    answers: ["Duplicated data"]
+
+  - type: choice
+    question: "What is better than storing a full currentItem object?"
+    options: ["Store currentItemIndex", "Store every item field twice", "Store a deep copy on every render", "Store the current DOM node"]
+    answers: ["Store currentItemIndex"]
+
+  - type: choice
+    question: "Why avoid deeply nested state objects?"
+    options: ["They are harder to update with spread", "They render faster", "They cannot hold arrays", "They are automatically immutable"]
+    answers: ["They are harder to update with spread"]
+
+  - type: choice
+    question: "Which value can be derived from answer?"
+    options: ["isEmpty", "answer", "error", "status"]
+    answers: ["isEmpty"]
+
+  - type: choice
+    question: "Which value can be derived from error?"
+    options: ["isError", "answer", "status", "setError"]
+    answers: ["isError"]
+
+  - type: choice
+    question: "Why use a single status instead of isTyping, isSubmitting, and isSuccess?"
+    options: ["It prevents impossible state combinations", "It makes props mutable", "It disables re-renders", "It removes the need for inputs"]
+    answers: ["It prevents impossible state combinations"]
+
+  - type: choice
+    question: "Which form status is shown as valid in the good version?"
+    options: ["typing", "loading", "idle", "complete"]
+    answers: ["typing"]
+
+  - type: choice
+    question: "What does normalized state replace in the places example?"
+    options: ["Deep childPlaces nesting", "All object IDs", "All titles", "The root item"]
+    answers: ["Deep childPlaces nesting"]
+
+  - type: fill
+    question: "Complete the derived state example."
+    text: "const isEmpty = answer.length === 0\nconst isError = error !== null"
+    blanks: ["isEmpty", "answer", "isError"]
+
+  - type: fill
+    question: "Complete the minimal form state."
+    text: "const [answer, setAnswer] = useState('')\nconst [error, setError] = useState(null)\nconst [status, setStatus] = useState('typing')"
+    blanks: ["answer", "error", "status"]
 ---
 
 # Simplifying State
@@ -92,4 +142,3 @@ const places = {
   7: { id: 7, title: 'Brazil', childIds: [] }
 };
 ```
-

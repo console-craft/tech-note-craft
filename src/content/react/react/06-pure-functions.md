@@ -1,6 +1,56 @@
 ---
 category: React
 order: 6
+quiz:
+  - type: choice
+    question: "What should React components behave like?"
+    options: ["Pure functions", "Random generators", "Global mutators", "Async jobs"]
+    answers: ["Pure functions"]
+
+  - type: choice
+    question: "What should a pure component not modify?"
+    options: ["Its inputs", "Local variables it just created", "Returned JSX", "Constants outside React"]
+    answers: ["Its inputs"]
+
+  - type: choice
+    question: "What should a pure component return for the same inputs?"
+    options: ["The same output", "A random output", "A mutated prop", "A different component each time"]
+    answers: ["The same output"]
+
+  - type: choice
+    question: "Which mutation is allowed during rendering?"
+    options: ["Local mutation of variables just defined", "Changing props", "Changing external variables", "Writing to browser storage"]
+    answers: ["Local mutation of variables just defined"]
+
+  - type: choice
+    question: "Where should side effects usually happen?"
+    options: ["Event handlers or Effects", "Unconditionally during render", "Inside JSX attributes only", "Inside component definitions nested in render"]
+    answers: ["Event handlers or Effects"]
+
+  - type: choice
+    question: "What does a useState setter queue?"
+    options: ["A future React state update", "A local variable mutation", "A direct prop change", "A synchronous DOM rewrite only"]
+    answers: ["A future React state update"]
+
+  - type: choice
+    question: "Why avoid calling state setters unconditionally during render?"
+    options: ["It can cause infinite loops", "It disables JSX", "It mutates props", "It closes all tags"]
+    answers: ["It can cause infinite loops"]
+
+  - type: choice
+    question: "When do event handlers run?"
+    options: ["When you perform an action", "During every render", "Before importing modules", "Only during commit cleanup"]
+    answers: ["When you perform an action"]
+
+  - type: fill
+    question: "Complete the pure component rule."
+    text: "Components should not modify their inputs and should return the same output for the same inputs."
+    blanks: ["inputs", "same output", "same inputs"]
+
+  - type: fill
+    question: "Complete the side-effect locations."
+    text: "Side effects should be done in event handlers or effects, not during rendering."
+    blanks: ["event handlers", "effects", "rendering"]
 ---
 
 # Pure functions

@@ -1,6 +1,56 @@
 ---
 category: FastAPI
 order: 7
+quiz:
+  - type: choice
+    question: "How do you define a path parameter in a FastAPI path?"
+    options: ["With curly braces", "With square brackets", "With a query string", "With Body()"]
+    answers: ["With curly braces"]
+
+  - type: choice
+    question: "What does FastAPI use to parse and validate typed path parameters?"
+    options: ["Pydantic", "pip", "uv", "Enum only"]
+    answers: ["Pydantic"]
+
+  - type: choice
+    question: "Why should /items/special be declared before /items/{item_id}?"
+    options: ["More specific paths should come first", "It is a query parameter", "It uses POST", "It needs Body()"]
+    answers: ["More specific paths should come first"]
+
+  - type: choice
+    question: "Which Python class is used for predefined path values in the note?"
+    options: ["Enum", "BaseModel", "FastAPI", "Body"]
+    answers: ["Enum"]
+
+  - type: choice
+    question: "What does Starlette's :path helper capture?"
+    options: ["The rest of the path", "Only the first segment", "Only query parameters", "Only integers"]
+    answers: ["The rest of the path"]
+
+  - type: choice
+    question: "Without :path, how much would a path parameter capture from examples/test.txt?"
+    options: ["examples", "examples/test.txt", "test.txt", "Nothing"]
+    answers: ["examples"]
+
+  - type: choice
+    question: "Variables not present in the path are considered what?"
+    options: ["Query parameters", "Path parameters", "Request body models", "Enums"]
+    answers: ["Query parameters"]
+
+  - type: choice
+    question: "Which types should query parameters usually use according to the note?"
+    options: ["str", "int", "float", "bool", "Pydantic models"]
+    answers: ["str", "int", "float", "bool"]
+
+  - type: fill
+    question: "Complete the path parameter example."
+    text: "@app.get(\"/items/{item_id}\")\ndef read_item(item_id: int):"
+    blanks: ["item_id", "read_item", "int"]
+
+  - type: fill
+    question: "Complete the optional query parameter example."
+    text: "def read_item(item_id: str, q: str | None = None):"
+    blanks: ["item_id", "str", "None"]
 ---
 
 # URL Parameters

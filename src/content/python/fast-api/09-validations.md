@@ -1,6 +1,56 @@
 ---
 category: FastAPI
 order: 9
+quiz:
+  - type: choice
+    question: Which FastAPI helper validates query parameters?
+    options: [Query, Path, Field, Body]
+    answers: [Query]
+
+  - type: choice
+    question: Which Query option changes the URL parameter name from q to item-query?
+    options: [alias, title, description, pattern]
+    answers: [alias]
+
+  - type: choice
+    question: Which Query option hides a parameter from the OpenAPI schema and docs?
+    options: [include_in_schema, deprecated, title, alias]
+    answers: [include_in_schema]
+
+  - type: choice
+    question: Which validators mean greater than and less than or equal?
+    options: [gt, ge, lt, le]
+    answers: [gt, le]
+
+  - type: choice
+    question: Which helper validates path parameters?
+    options: [Path, Query, Field, Cookie]
+    answers: [Path]
+
+  - type: choice
+    question: Which function is imported from Pydantic to validate model fields?
+    options: [Field, Query, Body, Path]
+    answers: [Field]
+
+  - type: choice
+    question: What does Body(embed=True) make FastAPI expect?
+    options: [nested model data under the parameter name, top-level model fields, a query parameter, a header value]
+    answers: [nested model data under the parameter name]
+
+  - type: choice
+    question: Which Pydantic validator is used in the custom query parameter example?
+    options: [AfterValidator, BeforeValidator, FieldValidator, ModelValidator]
+    answers: [AfterValidator]
+
+  - type: fill
+    question: Complete the query validation helper names.
+    text: "Use Query for query parameters and Path for path parameters."
+    blanks: [Query, Path]
+
+  - type: fill
+    question: Complete the body validation helper names.
+    text: "Use Field from Pydantic for model fields and Body(embed=True) to nest the item body."
+    blanks: [Field, Body, item]
 ---
 
 # Validations
@@ -176,4 +226,3 @@ start_process = start + process_after
 ```
 
 </details>
-

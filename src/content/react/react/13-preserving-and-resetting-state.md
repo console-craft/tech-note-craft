@@ -1,6 +1,56 @@
 ---
 category: React
 order: 13
+quiz:
+  - type: choice
+    question: "When does React preserve component state?"
+    options: ["Same component at the same tree position", "Different component at the same position", "Same component with a different key", "Unmounted component rendered later"]
+    answers: ["Same component at the same tree position"]
+
+  - type: choice
+    question: "What happens when showCounter becomes false in showCounter && <Counter />?"
+    options: ["Counter unmounts", "Counter keeps rendering", "Counter receives new props only", "Counter changes keys"]
+    answers: ["Counter unmounts"]
+
+  - type: choice
+    question: "What happens to Counter state after it unmounts?"
+    options: ["It is lost", "It is preserved forever", "It moves to props", "It becomes a ref"]
+    answers: ["It is lost"]
+
+  - type: choice
+    question: "What happens when the same Counter stays at the same position with different props?"
+    options: ["It keeps the same state", "It always resets state", "It unmounts", "It becomes a different component type"]
+    answers: ["It keeps the same state"]
+
+  - type: choice
+    question: "What causes state loss at the same tree position?"
+    options: ["Switching between different component types", "Changing props on the same component", "Re-rendering the parent", "Passing a boolean prop"]
+    answers: ["Switching between different component types"]
+
+  - type: choice
+    question: "Which is one way to reset state?"
+    options: ["Render components at different positions", "Mutate props", "Use the same key", "Avoid rendering JSX"]
+    answers: ["Render components at different positions"]
+
+  - type: choice
+    question: "Which prop can tell React to treat two components as different?"
+    options: ["key", "className", "children", "ref"]
+    answers: ["key"]
+
+  - type: choice
+    question: "Which example resets state between players?"
+    options: ["<Counter key=\"taylor\" /> and <Counter key=\"sarah\" />", "<Counter isMax={true} /> and <Counter isMax={false} />", "<Counter /> at the same position", "Passing a new prop without a key"]
+    answers: ["<Counter key=\"taylor\" /> and <Counter key=\"sarah\" />"]
+
+  - type: fill
+    question: "Complete the preservation rule."
+    text: "React keeps state while rendering the same component at the same position in the tree."
+    blanks: ["same component", "same position", "tree"]
+
+  - type: fill
+    question: "Complete the key-based reset example."
+    text: "isPlayerA ? <Counter key=\"taylor\" person=\"Taylor\" /> : <Counter key=\"sarah\" person=\"Sarah\" />"
+    blanks: ["key", "taylor", "sarah"]
 ---
 
 # Preserving and resetting state

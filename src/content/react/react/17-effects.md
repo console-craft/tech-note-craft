@@ -1,6 +1,56 @@
 ---
 category: React
 order: 17
+quiz:
+  - type: choice
+    question: "When do Effects run?"
+    options: ["After React commits changes to the DOM", "Before rendering starts", "Inside JSX parsing", "Only before imports"]
+    answers: ["After React commits changes to the DOM"]
+
+  - type: choice
+    question: "What are Effects used to synchronize with?"
+    options: ["Systems outside React", "JSX tags only", "Local variables", "Markdown headings"]
+    answers: ["Systems outside React"]
+
+  - type: choice
+    question: "Which hook can run synchronization before the user sees changes?"
+    options: ["useLayoutEffect", "useEffect", "useMemo", "useRef"]
+    answers: ["useLayoutEffect"]
+
+  - type: choice
+    question: "What can create an infinite Effect loop?"
+    options: ["Updating a dependency every time the Effect runs", "Returning a cleanup function", "Using an empty dependency array", "Reading a stable setter"]
+    answers: ["Updating a dependency every time the Effect runs"]
+
+  - type: choice
+    question: "What does an Effect with no dependency array do?"
+    options: ["Runs after every committed render", "Runs only on mount", "Never runs", "Runs only on unmount"]
+    answers: ["Runs after every committed render"]
+
+  - type: choice
+    question: "What does an Effect with [] do?"
+    options: ["Runs after the initial committed render", "Runs after every render", "Runs before every render", "Runs only when a ref changes"]
+    answers: ["Runs after the initial committed render"]
+
+  - type: choice
+    question: "What must an Effect callback return?"
+    options: ["Nothing or a cleanup function", "A Promise", "JSX", "A reducer action"]
+    answers: ["Nothing or a cleanup function"]
+
+  - type: choice
+    question: "Why should useEffect callbacks not be async?"
+    options: ["Async functions always return a Promise", "Async functions cannot call fetch", "Async functions cannot set state", "Async functions always run during render"]
+    answers: ["Async functions always return a Promise"]
+
+  - type: fill
+    question: "Complete the playback synchronization Effect."
+    text: "useEffect(() => {\n  if (isPlaying) {\n    ref.current.play()\n  } else {\n    ref.current.pause()\n  }\n}, [isPlaying])"
+    blanks: ["useEffect", "isPlaying", "isPlaying"]
+
+  - type: fill
+    question: "Complete the cleanup listener Effect."
+    text: "window.addEventListener('scroll', handleScroll)\nreturn () => window.removeEventListener('scroll', handleScroll)"
+    blanks: ["addEventListener", "removeEventListener", "handleScroll"]
 ---
 
 # Effects

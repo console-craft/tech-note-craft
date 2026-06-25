@@ -1,6 +1,56 @@
 ---
 category: React
 order: 10
+quiz:
+  - type: choice
+    question: "What is one reason a component renders?"
+    options: ["Initial render", "A closed JSX tag", "A stable ref identity", "A className attribute"]
+    answers: ["Initial render"]
+
+  - type: choice
+    question: "What is another reason a component renders?"
+    options: ["Its state or an ancestor's state updated", "A prop was mutated directly", "A local variable changed without state", "A comment was added"]
+    answers: ["Its state or an ancestor's state updated"]
+
+  - type: choice
+    question: "What starts the initial render in the note?"
+    options: ["createRoot(...).render()", "useEffect()", "useRef()", "map()"]
+    answers: ["createRoot(...).render()"]
+
+  - type: choice
+    question: "What does rendering calculate?"
+    options: ["What the UI should look like", "Browser storage contents", "Network responses", "CSS files"]
+    answers: ["What the UI should look like"]
+
+  - type: choice
+    question: "What does rendering take from state?"
+    options: ["A snapshot in time", "A mutable reference", "A DOM node", "A database row"]
+    answers: ["A snapshot in time"]
+
+  - type: choice
+    question: "What does every render's functions see?"
+    options: ["That render's state snapshot", "Future state immediately", "Only latest refs", "Only initial props"]
+    answers: ["That render's state snapshot"]
+
+  - type: choice
+    question: "When does React apply minimal DOM operations?"
+    options: ["During the commit phase", "Before rendering", "Inside the event handler only", "While importing modules"]
+    answers: ["During the commit phase"]
+
+  - type: choice
+    question: "Why can text inside inputs be preserved across renders?"
+    options: ["React only changes DOM nodes when there is a difference", "React recreates every DOM node", "Local variables survive re-renders", "Event handlers never change"]
+    answers: ["React only changes DOM nodes when there is a difference"]
+
+  - type: fill
+    question: "Complete the render phases."
+    text: "Rendering calculates the UI, and the commit phase applies changes to the DOM."
+    blanks: ["Rendering", "commit", "DOM"]
+
+  - type: fill
+    question: "Complete the state snapshot idea."
+    text: "Every render has its own props, event handlers, and local variables calculated from that render's state."
+    blanks: ["props", "event handlers", "state"]
 ---
 
 # Rendering

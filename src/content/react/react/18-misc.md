@@ -1,6 +1,56 @@
 ---
 category: React
 order: 18
+quiz:
+  - type: choice
+    question: "How should you measure performance before adding memoization?"
+    options: ["Build in production and observe with CPU throttling", "Always add useMemo first", "Only read source code", "Disable rendering"]
+    answers: ["Build in production and observe with CPU throttling"]
+
+  - type: choice
+    question: "Which browser tool setting is mentioned for simulating slower devices?"
+    options: ["CPU throttling", "Dark mode", "Network offline", "Print preview"]
+    answers: ["CPU throttling"]
+
+  - type: choice
+    question: "Which API measures the filtering example?"
+    options: ["console.time", "performance.reset", "useEffect", "createRoot"]
+    answers: ["console.time"]
+
+  - type: choice
+    question: "Which hook memoizes the visibleTodos calculation?"
+    options: ["useMemo", "useEffect", "useRef", "useContext"]
+    answers: ["useMemo"]
+
+  - type: choice
+    question: "When should the memoized filter run again?"
+    options: ["When todos or filter changes", "On every keypress in unrelated state", "Only on app load", "Never after mount"]
+    answers: ["When todos or filter changes"]
+
+  - type: choice
+    question: "Where should code that runs once per app load go?"
+    options: ["A separate initialization module imported by the root entry point", "useEffect([], []) in App", "Inside every component render", "Inside a list key"]
+    answers: ["A separate initialization module imported by the root entry point"]
+
+  - type: choice
+    question: "Why avoid App useEffect(..., []) for once-per-app-load code?"
+    options: ["It runs on App mount and can run twice in dev", "It never runs", "It blocks imports", "It resets all keys"]
+    answers: ["It runs on App mount and can run twice in dev"]
+
+  - type: choice
+    question: "What should you use to reset child state when a prop changes?"
+    options: ["A key", "A useEffect reset", "A mutable prop", "A nested component definition"]
+    answers: ["A key"]
+
+  - type: fill
+    question: "Complete the memoized filtering example."
+    text: "const visibleTodos = useMemo(() => {\n  return getFilteredTodos(todos, filter)\n}, [todos, filter])"
+    blanks: ["useMemo", "todos", "filter"]
+
+  - type: fill
+    question: "Complete the key reset example."
+    text: "<Profile userId={userId} key={userId} />"
+    blanks: ["Profile", "userId", "key"]
 ---
 
 # Misc
@@ -74,3 +124,5 @@ function Profile({ userId }) {
   // ...
 }
 ```
+
+- TODO: continue quiz - https://react.dev/learn/you-might-not-need-an-effect#reset-state-without-effects

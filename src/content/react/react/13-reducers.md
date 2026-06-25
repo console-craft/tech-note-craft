@@ -1,6 +1,56 @@
 ---
 category: React
 order: 14
+quiz:
+  - type: choice
+    question: "What must reducers be?"
+    options: ["Pure", "Async", "Random", "Nested components"]
+    answers: ["Pure"]
+
+  - type: choice
+    question: "What should a reducer return for the same input?"
+    options: ["The same output", "A random ID", "The current date", "A network response"]
+    answers: ["The same output"]
+
+  - type: choice
+    question: "Which side effect does the note say reducers should avoid?"
+    options: ["API calls", "Switch statements", "Returning new objects", "Filtering arrays"]
+    answers: ["API calls"]
+
+  - type: choice
+    question: "What should each reducer action describe?"
+    options: ["A single user interaction", "One field change only", "A random value", "A component render"]
+    answers: ["A single user interaction"]
+
+  - type: choice
+    question: "Why is the added action passed an id from the event handler?"
+    options: ["To keep the reducer pure", "To mutate the reducer", "To avoid dispatch", "To force a context update"]
+    answers: ["To keep the reducer pure"]
+
+  - type: choice
+    question: "Which hook is used with tasksReducer in App?"
+    options: ["useReducer", "useState", "useEffect", "useRef"]
+    answers: ["useReducer"]
+
+  - type: choice
+    question: "Which action type updates newTaskText?"
+    options: ["changed", "added", "deleted", "submitted"]
+    answers: ["changed"]
+
+  - type: choice
+    question: "Which array method removes a deleted task?"
+    options: ["filter", "map", "push", "splice"]
+    answers: ["filter"]
+
+  - type: fill
+    question: "Complete the reducer hook usage."
+    text: "const [tasks, dispatch] = useReducer(tasksReducer, initialTasks)"
+    blanks: ["tasks", "dispatch", "useReducer"]
+
+  - type: fill
+    question: "Complete the deleted case update."
+    text: "items: tasks.items.filter((t) => t.id !== action.id)"
+    blanks: ["items", "filter", "action.id"]
 ---
 
 # Reducers

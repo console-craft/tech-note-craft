@@ -1,6 +1,56 @@
 ---
 category: React
 order: 3
+quiz:
+  - type: choice
+    question: "Which conditional style is best for big branches or early returns?"
+    options: ["if-else statement", "Ternary operator", "Logical AND", "Object lookup"]
+    answers: ["if-else statement"]
+
+  - type: choice
+    question: "Which conditional style is best for two small alternatives?"
+    options: ["Ternary operator", "Switch statement", "if-else statement", "Object lookup"]
+    answers: ["Ternary operator"]
+
+  - type: choice
+    question: "Which conditional style is best for rendering something or nothing?"
+    options: ["Logical AND operator", "Switch statement", "Object lookup", "if-else statement"]
+    answers: ["Logical AND operator"]
+
+  - type: choice
+    question: "Which values are not rendered by React?"
+    options: ["null, undefined, false, and true", "0 only", "Empty strings only", "All numbers"]
+    answers: ["null, undefined, false, and true"]
+
+  - type: choice
+    question: "Which value can accidentally render when using &&?"
+    options: ["0", "false", "null", "undefined"]
+    answers: ["0"]
+
+  - type: choice
+    question: "What is safer than usersCount && <UsersList />?"
+    options: ["usersCount > 0 && <UsersList />", "usersCount || <UsersList />", "usersCount ? null : <UsersList />", "usersCount === false && <UsersList />"]
+    answers: ["usersCount > 0 && <UsersList />"]
+
+  - type: choice
+    question: "Which conditional style is best for multiple cases with logic?"
+    options: ["Switch statement", "Logical AND", "Ternary operator", "Fragment"]
+    answers: ["Switch statement"]
+
+  - type: choice
+    question: "Which conditional style is best for many named states?"
+    options: ["Object lookup", "Logical AND", "if-else only", "Nested ternaries"]
+    answers: ["Object lookup"]
+
+  - type: fill
+    question: "Complete the logical AND condition."
+    text: "return <li>{name} {isPacked && \"✅\"}</li>"
+    blanks: ["isPacked", "&&"]
+
+  - type: fill
+    question: "Complete the object lookup render."
+    text: "const statusMessages = { packed: `${name} ✅`, unpacked: name }\nreturn <li>{statusMessages[status]}</li>"
+    blanks: ["statusMessages", "status"]
 ---
 
 # Conditional Rendering

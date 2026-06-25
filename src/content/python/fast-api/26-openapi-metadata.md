@@ -1,6 +1,56 @@
 ---
 category: FastAPI
 order: 26
+quiz:
+  - type: choice
+    question: "Which FastAPI argument sets the API title?"
+    options: ["title", "description", "version", "openapi_tags"]
+    answers: ["title"]
+
+  - type: choice
+    question: "Which variable is passed as the app description?"
+    options: ["description", "tags_metadata", "license_info", "contact"]
+    answers: ["description"]
+
+  - type: choice
+    question: "Which FastAPI argument receives tag metadata?"
+    options: ["openapi_tags", "tags", "docs_url", "redoc_url"]
+    answers: ["openapi_tags"]
+
+  - type: choice
+    question: "What custom Swagger UI docs URL is configured?"
+    options: ["/documentation", "/docs", "/redoc", "/openapi.json"]
+    answers: ["/documentation"]
+
+  - type: choice
+    question: "What value disables ReDoc in the example?"
+    options: ["None", "False", "'/redoc'", "'/documentation'"]
+    answers: ["None"]
+
+  - type: choice
+    question: "Which metadata fields are included in contact?"
+    options: ["name", "url", "email", "identifier"]
+    answers: ["name", "url", "email"]
+
+  - type: choice
+    question: "Which tag includes externalDocs metadata?"
+    options: ["items", "users", "admin", "auth"]
+    answers: ["items"]
+
+  - type: choice
+    question: "Which tags are assigned to the two path operations?"
+    options: ["users", "items", "admin", "internal"]
+    answers: ["users", "items"]
+
+  - type: fill
+    question: "Complete the FastAPI metadata arguments."
+    text: "app = FastAPI(title='ACME App', description=description, version='0.0.1')"
+    blanks: ["title", "description", "version"]
+
+  - type: fill
+    question: "Complete the docs settings."
+    text: "docs_url='/documentation', redoc_url=None"
+    blanks: ["docs_url", "redoc_url", "None"]
 ---
 
 # OpenAPI Metadata

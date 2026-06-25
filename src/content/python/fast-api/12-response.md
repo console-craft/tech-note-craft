@@ -1,6 +1,56 @@
 ---
 category: FastAPI
 order: 12
+quiz:
+  - type: choice
+    question: Which model class defines name, description, price, tax, and tags?
+    options: [Item, UserOut, User, Response]
+    answers: [Item]
+
+  - type: choice
+    question: What return type is declared for create_item in the basic example?
+    options: [Item, "list[Item]", Response, dict]
+    answers: [Item]
+
+  - type: choice
+    question: What return type is declared for read_items in the basic example?
+    options: ["list[Item]", Item, Response, JSONResponse]
+    answers: ["list[Item]"]
+
+  - type: choice
+    question: Which path operation argument controls returned data with a Pydantic model?
+    options: [response_model, status_code, tags, summary]
+    answers: [response_model]
+
+  - type: choice
+    question: Which fields are returned by response_model=UserOut?
+    options: [id, email, password_hash, is_active]
+    answers: [id, email]
+
+  - type: choice
+    question: Which response classes are returned directly in the examples?
+    options: [HTMLResponse, RedirectResponse, JSONResponse, UploadFile]
+    answers: [HTMLResponse, RedirectResponse, JSONResponse]
+
+  - type: choice
+    question: Which Pydantic method converts a model to a dictionary?
+    options: [model_dump, dict_dump, json_dump, response_model]
+    answers: [model_dump]
+
+  - type: choice
+    question: Which status code is set on the create item POST example?
+    options: [201, 200, 422, 500]
+    answers: [201]
+
+  - type: fill
+    question: Complete the response model behavior.
+    text: "response_model filters, validates, serializes, and documents returned data."
+    blanks: [response_model, validates, serializes]
+
+  - type: fill
+    question: Complete the direct response classes.
+    text: "Return HTMLResponse, RedirectResponse, or JSONResponse directly when needed."
+    blanks: [HTMLResponse, RedirectResponse, JSONResponse]
 ---
 
 # Response
@@ -104,8 +154,6 @@ def create_item(name: str):
 
 > [!note]
 > If you don't explicitly set a status code, FastAPI will mostly default to `200` (success), `422` (valuation error), or `500` (internal server error).
-
-
 
 
 

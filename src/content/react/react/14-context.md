@@ -1,6 +1,56 @@
 ---
 category: React
 order: 14
+quiz:
+  - type: choice
+    question: "What newer syntax can replace <SomeContext.Provider> in React 19?"
+    options: ["<SomeContext>", "<Providerless>", "<Context.Value>", "<useContext>"]
+    answers: ["<SomeContext>"]
+
+  - type: choice
+    question: "Which function creates a context?"
+    options: ["createContext", "useContext", "useState", "createRoot"]
+    answers: ["createContext"]
+
+  - type: choice
+    question: "Where should contexts usually be created?"
+    options: ["Outside components", "Inside every render", "Inside event handlers", "Inside JSX children"]
+    answers: ["Outside components"]
+
+  - type: choice
+    question: "Which hook reads context from a nested child?"
+    options: ["useContext", "createContext", "useState", "useReducer"]
+    answers: ["useContext"]
+
+  - type: choice
+    question: "What value does ThemeContext provide in the example?"
+    options: ["An object with theme and toggleTheme", "Only currentUser", "Only a string id", "A DOM node"]
+    answers: ["An object with theme and toggleTheme"]
+
+  - type: choice
+    question: "What value does CurrentUserContext provide?"
+    options: ["The currentUser object", "The theme setter", "The Header component", "The Page children only"]
+    answers: ["The currentUser object"]
+
+  - type: choice
+    question: "Which component reads ThemeContext in the example?"
+    options: ["Header", "App", "Page", "CurrentUserContext"]
+    answers: ["Header"]
+
+  - type: choice
+    question: "Which component reads CurrentUserContext in the example?"
+    options: ["UserProfile", "Header", "ThemeContext", "toggleTheme"]
+    answers: ["UserProfile"]
+
+  - type: fill
+    question: "Complete the context creation."
+    text: "const ThemeContext = createContext(null)\nconst CurrentUserContext = createContext(null)"
+    blanks: ["ThemeContext", "createContext", "CurrentUserContext"]
+
+  - type: fill
+    question: "Complete the context read."
+    text: "const { theme, toggleTheme } = useContext(ThemeContext)"
+    blanks: ["theme", "toggleTheme", "useContext"]
 ---
 
 # Context

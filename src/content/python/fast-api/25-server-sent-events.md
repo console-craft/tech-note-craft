@@ -1,6 +1,56 @@
 ---
 category: FastAPI
 order: 25
+quiz:
+  - type: choice
+    question: "Which response class marks an endpoint as returning server-sent events?"
+    options: ["EventSourceResponse", "ServerSentEvent", "FastAPI", "BaseModel"]
+    answers: ["EventSourceResponse"]
+
+  - type: choice
+    question: "Which import provides custom SSE event objects?"
+    options: ["ServerSentEvent", "AsyncIterable", "Iterable", "BaseModel"]
+    answers: ["ServerSentEvent"]
+
+  - type: choice
+    question: "Which decorator argument sets the SSE response class?"
+    options: ["response_class", "tags", "responses", "status_code"]
+    answers: ["response_class"]
+
+  - type: choice
+    question: "How are yielded Item values sent in the basic SSE endpoints?"
+    options: ["as server-sent events", "as uploaded files", "as redirects", "as cookies"]
+    answers: ["as server-sent events"]
+
+  - type: choice
+    question: "Which function returns custom ServerSentEvent objects?"
+    options: ["stream_items_custom", "sse_items", "sse_items_non_async", "read_items"]
+    answers: ["stream_items_custom"]
+
+  - type: choice
+    question: "Which ServerSentEvent fields are set for item updates?"
+    options: ["data", "event", "id", "retry", "headers"]
+    answers: ["data", "event", "id", "retry"]
+
+  - type: choice
+    question: "What event name is used for item update events?"
+    options: ["item_update", "done", "message", "ping"]
+    answers: ["item_update"]
+
+  - type: choice
+    question: "What does FastAPI send every 15 seconds when there has not been a message?"
+    options: ["a keep alive ping comment", "a redirect", "an error event", "a JSON line"]
+    answers: ["a keep alive ping comment"]
+
+  - type: fill
+    question: "Complete the SSE response class argument."
+    text: "@app.get('/items/stream', response_class=EventSourceResponse)"
+    blanks: ["response_class", "EventSourceResponse"]
+
+  - type: fill
+    question: "Complete the custom item update event."
+    text: "ServerSentEvent(data=item, event='item_update', id=str(i + 1), retry=5000)"
+    blanks: ["data", "event", "id", "retry"]
 ---
 
 # Server-Sent Events (SSE)

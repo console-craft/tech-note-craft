@@ -1,6 +1,56 @@
 ---
 category: FastAPI
 order: 19
+quiz:
+  - type: choice
+    question: Which packages are installed to use JWT tokens in the card?
+    options: [pyjwt, "pwdlib[argon2]", requests, sqlalchemy]
+    answers: [pyjwt, "pwdlib[argon2]"]
+
+  - type: choice
+    question: Which authentication scheme object reads bearer tokens from requests?
+    options: [OAuth2PasswordBearer, OAuth2PasswordRequestForm, PasswordHash, HTTPException]
+    answers: [OAuth2PasswordBearer]
+
+  - type: choice
+    question: What token URL is configured for `oauth2_scheme`?
+    options: [token, login, users/me, items]
+    answers: [token]
+
+  - type: choice
+    question: Which algorithm is used to encode and decode the JWT?
+    options: [HS256, RS256, ES256, none]
+    answers: [HS256]
+
+  - type: choice
+    question: Which JWT claim stores the username in this example?
+    options: [sub, exp, iss, aud]
+    answers: [sub]
+
+  - type: choice
+    question: Which model represents the response from the token endpoint?
+    options: [Token, TokenData, User, Item]
+    answers: [Token]
+
+  - type: choice
+    question: Why does `authenticate_user` verify a dummy hash when a user is missing?
+    options: [mitigate timing attacks, create a new user, refresh the token, validate email]
+    answers: [mitigate timing attacks]
+
+  - type: choice
+    question: Which endpoint returns items owned by the current active user?
+    options: [/items, /token, /users/me, "/send-notification/{email}"]
+    answers: [/items]
+
+  - type: fill
+    question: Complete the OAuth2 bearer scheme setup.
+    text: "oauth2_scheme = OAuth2PasswordBearer(tokenUrl=\"token\")"
+    blanks: [oauth2_scheme, OAuth2PasswordBearer, tokenUrl, token]
+
+  - type: fill
+    question: Complete the JWT encode call.
+    text: "encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)"
+    blanks: [jwt.encode, to_encode, SECRET_KEY, ALGORITHM]
 ---
 
 # Authentication

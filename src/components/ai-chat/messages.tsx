@@ -34,7 +34,7 @@ export function AIChatMessages({ isConversationLoaded, messages, messagesRef }: 
             {message.role === "user" ? (
               <p className="whitespace-pre-wrap font-semibold">{message.content}</p>
             ) : (
-              <MarkdownContent content={message.content} emptyMessage="Empty response." />
+              <MarkdownContent content={message.content} emptyMessage={<span>Empty response.</span>} />
             )}
           </article>
         ))

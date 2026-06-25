@@ -1,6 +1,56 @@
 ---
 category: React
 order: 8
+quiz:
+  - type: choice
+    question: "Which hook creates component state in the example?"
+    options: ["useState", "useRef", "useEffect", "useContext"]
+    answers: ["useState"]
+
+  - type: choice
+    question: "What is the initial index in the Names example?"
+    options: ["0", "1", "names.length", "undefined"]
+    answers: ["0"]
+
+  - type: choice
+    question: "What do local variables fail to do between renders?"
+    options: ["Persist", "Compute values", "Store strings", "Exist inside functions"]
+    answers: ["Persist"]
+
+  - type: choice
+    question: "Do local variable changes trigger renders?"
+    options: ["No", "Yes", "Only arrays do", "Only objects do"]
+    answers: ["No"]
+
+  - type: choice
+    question: "What do state variables retain?"
+    options: ["Data between renders", "Only DOM nodes", "Only event objects", "Only CSS classes"]
+    answers: ["Data between renders"]
+
+  - type: choice
+    question: "What do state setter functions do?"
+    options: ["Queue a React state update", "Mutate props directly", "Prevent rendering", "Create list keys"]
+    answers: ["Queue a React state update"]
+
+  - type: choice
+    question: "How should object state be updated?"
+    options: ["Create a new object version", "Mutate the existing object", "Change previous snapshots", "Push into it"]
+    answers: ["Create a new object version"]
+
+  - type: choice
+    question: "Which array method is listed for removing items from state?"
+    options: ["filter", "push", "splice", "sort"]
+    answers: ["filter"]
+
+  - type: fill
+    question: "Complete the state declaration."
+    text: "const [index, setIndex] = useState(0)\nsetIndex(index + 1)"
+    blanks: ["index", "setIndex", "useState"]
+
+  - type: fill
+    question: "Complete the immutable array update helpers."
+    text: "Use spread to add, slice to insert, map to transform, filter to remove, and find to locate an item."
+    blanks: ["spread", "slice", "filter"]
 ---
 
 # Component State

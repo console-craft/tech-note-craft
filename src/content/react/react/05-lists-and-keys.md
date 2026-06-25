@@ -1,6 +1,56 @@
 ---
 category: React
 order: 5
+quiz:
+  - type: choice
+    question: "Which array method is commonly used to render lists?"
+    options: ["map()", "filter()", "reduce()", "sort()"]
+    answers: ["map()"]
+
+  - type: choice
+    question: "Where should ideal list keys come from?"
+    options: ["Stable backend data IDs", "Math.random() during render", "Array indexes always", "useId()"]
+    answers: ["Stable backend data IDs"]
+
+  - type: choice
+    question: "Which JSX shows a correct key from data?"
+    options: ["<li key={person.id}>{person.name}</li>", "<li key={crypto.randomUUID()}>{person.name}</li>", "<li>{person.name}</li>", "<li key={useId()}>{person.name}</li>"]
+    answers: ["<li key={person.id}>{person.name}</li>"]
+
+  - type: choice
+    question: "What should you use when a keyed wrapper should not add a DOM node?"
+    options: ["<Fragment key={person.id}>", "<> with key", "<div keyless>", "useId()"]
+    answers: ["<Fragment key={person.id}>"]
+
+  - type: choice
+    question: "Why not use <>...</> for keyed fragments?"
+    options: ["It does not support keys", "It always renders a DOM node", "It is not valid JSX", "It only works in class components"]
+    answers: ["It does not support keys"]
+
+  - type: choice
+    question: "What must be true about keys inside one list?"
+    options: ["They must be unique", "They must be numbers", "They must be generated on every render", "They must be indexes"]
+    answers: ["They must be unique"]
+
+  - type: choice
+    question: "When is an array index acceptable as a key?"
+    options: ["When the list is truly static", "When items reorder often", "When items are added often", "When backend IDs exist"]
+    answers: ["When the list is truly static"]
+
+  - type: choice
+    question: "What is useId() for according to the note?"
+    options: ["Accessibility attributes", "List keys", "Random database IDs", "Sorting arrays"]
+    answers: ["Accessibility attributes"]
+
+  - type: fill
+    question: "Complete the list rendering example."
+    text: "const peopleList = people.map((person) => <li key={person.id}>{person.name}</li>)"
+    blanks: ["map", "key", "person.id"]
+
+  - type: fill
+    question: "Complete the stable client ID rule."
+    text: "Generate crypto.randomUUID() once when ingesting data or when creating a new item, not during render."
+    blanks: ["crypto.randomUUID()", "once", "render"]
 ---
 
 # Lists & Keys

@@ -1,6 +1,56 @@
 ---
 category: FastAPI
 order: 3
+quiz:
+  - type: choice
+    question: "What syntax does modern Python use for asynchronous code?"
+    options: ["async/await", "then/catch", "yield only", "thread/lock"]
+    answers: ["async/await"]
+
+  - type: choice
+    question: "When should a FastAPI path operation use async def according to the note?"
+    options: ["When using a library that needs await", "Whenever it returns JSON", "Only for CPU-heavy code", "Only for static files"]
+    answers: ["When using a library that needs await"]
+
+  - type: choice
+    question: "What kind of functions will you often use with DB libraries that do not support concurrency?"
+    options: ["Normal def functions", "Only async def functions", "Generator functions", "Lambda functions"]
+    answers: ["Normal def functions"]
+
+  - type: choice
+    question: "What happens in Python if you call a coroutine without awaiting or scheduling it?"
+    options: ["It does not run", "It always runs immediately", "It becomes JSON", "It blocks the CPU"]
+    answers: ["It does not run"]
+
+  - type: choice
+    question: "Which call schedules a Python coroutine in the note?"
+    options: ["asyncio.create_task(hello())", "hello.then()", "FastAPI.schedule(hello)", "awaited = false"]
+    answers: ["asyncio.create_task(hello())"]
+
+  - type: choice
+    question: "In JavaScript, what does calling an async function return if not awaited?"
+    options: ["A Promise", "A coroutine object", "A route", "A dict"]
+    answers: ["A Promise"]
+
+  - type: choice
+    question: "What runs a FastAPI app on an event loop in the note?"
+    options: ["An ASGI server such as Uvicorn", "The type checker", "pip", "A dataclass"]
+    answers: ["An ASGI server such as Uvicorn"]
+
+  - type: choice
+    question: "Concurrency is best suited for which kind of work?"
+    options: ["I/O waiting", "CPU-heavy loops", "Image resizing only", "Parsing huge PDFs faster"]
+    answers: ["I/O waiting"]
+
+  - type: fill
+    question: "Complete the async path operation."
+    text: "@app.get('/')\nasync def read_results():\n    results = await some_library()"
+    blanks: ["async", "await", "some_library"]
+
+  - type: fill
+    question: "Complete the Python coroutine rule."
+    text: "Python does not run a coroutine just by calling it; you need to await it or schedule it."
+    blanks: ["coroutine", "await", "schedule"]
 ---
 
 # Concurrency and async/await
